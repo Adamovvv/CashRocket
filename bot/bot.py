@@ -1,4 +1,4 @@
-import asyncio
+п»їimport asyncio
 import os
 
 from aiogram import Bot, Dispatcher, F
@@ -10,7 +10,6 @@ load_dotenv()
 
 BOT_TOKEN = os.getenv("BOT_TOKEN", "")
 WEBAPP_URL = os.getenv("WEBAPP_URL", "")
-
 
 if not BOT_TOKEN:
     raise RuntimeError("BOT_TOKEN is not set. Put it into bot/.env")
@@ -24,7 +23,7 @@ def build_main_keyboard() -> ReplyKeyboardMarkup:
         keyboard=[
             [
                 KeyboardButton(
-                    text="Открыть CashRocket",
+                    text="Open CashRocket",
                     web_app=WebAppInfo(url=WEBAPP_URL),
                 )
             ]
@@ -39,14 +38,14 @@ dp = Dispatcher()
 @dp.message(CommandStart())
 async def start_handler(message: Message) -> None:
     await message.answer(
-        "Добро пожаловать в CashRocket. Нажмите кнопку ниже, чтобы открыть мини-приложение.",
+        "Welcome to CashRocket. Tap the button below to open the mini app.",
         reply_markup=build_main_keyboard(),
     )
 
 
-@dp.message(F.text == "Открыть CashRocket")
+@dp.message(F.text == "Open CashRocket")
 async def open_handler(message: Message) -> None:
-    await message.answer("Открываю мини-приложение.", reply_markup=build_main_keyboard())
+    await message.answer("Opening mini app.", reply_markup=build_main_keyboard())
 
 
 async def main() -> None:
